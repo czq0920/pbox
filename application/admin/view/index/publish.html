@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会小二图片发布系统</title>
+    <script type="text/javascript" src="__JQUERY__"></script>
+    <script type="text/javascript" src="__JS__/common.js"></script>
+</head>
+<body>
+    <label for="">拍摄时间</label>
+    <input type="date"  name="startTime"/>至<input type="date"  name="endTime"/>
+       拍摄状态   <select name="" id="">
+        <option value="">全部</option>
+        <option value="">未开始</option>
+        <option value="">进行中</option>
+        <option value="">已结束</option>
+        {volist  name="lists" id="list" emply="没有符合条件的数据！"}
+            订单号：{$list.order_id}        订单状态：{$list.status}
+            城市：{$list.city_name}       拍摄日期：{$list.start_time}
+            相册封面：{$list.album_cover}
+        <a href="">进入</a>
+        {/volist}
+    </select>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{extend name="index:layout" /}
+{block name="title"}会小二拍后台添加新单页面{/block}
+{block name="first_title"}订单处理{/block}
+{block name="last_title"}添加新单{/block}
+{block name="content"}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box">
+				<form action="{:url('admin/ajax/addEvent')}" method="post">
+					<div class="box-header">
+						<h3 class="box-title"></h3>
+						<a href="index" class="btn btn-default pull-right">订单中心</a>
+					</div>
+					<!-- /.box-header -->
+					<input type="hidden" name="tokenAdminEvent" value="{$Request.token.tokenAdminEvent}">
+					<input type="hidden" name="order_id" value="{$list.order_id}">
+					<div class="form-group">
+						<label >拍摄主题</label>
+						<input type="text" name="event_title"  value="{$list.event_title}" disabled="true" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>拍摄日期</label>
+						<input type="date" name="order_date" value="{$list.order_date}"  readOnly="true" class="form-control"/>
+					</div>
+					<div class="form-group">
+						<label for="input_company_name">客户公司名称</label>
+						<input type="text" name="company_name" placeholder="客户公司名称" id="input_company_name" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="input_company_contact">客户联系人</label>
+						<input type="text" name="company_contact" placeholder="客户联系人" id="input_company_contact" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="input_company_contact_mobile">客户联系电话</label>
+						<input type="text" name="company_contact_mobile" placeholder="客户联系电话" id="input_company_contact_mobile" class="form-control">
+					</div>
+					<div class="form-group">
+					<label for="input_event_address">会议举办地点</label>
+					<input type="text" name="event_address" placeholder="会议举办地点" id="input_event_address" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="input_event_type">会议类型</label>
+						<input type="text" name="event_type" placeholder="会议类型" id="input_event_type" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="input_event_number">会议人数</label>
+						<input type="text" name="event_number" placeholder="会议人数" id="input_event_number" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="input_event_consult">会议顾问</label>
+						<input type="text" name="event_consult" placeholder="会议顾问" id="input_event_consult" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="input_event_consult_mobile">顾问联系方式</label>
+						<input type="text" name="event_consult_mobile" placeholder="顾问联系方式" id="input_event_consult_mobile" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="input_event_start_time">会议开始时间</label>
+						<input type="datetime-local" name="event_start_time" placeholder="会议开始时间" id="input_event_start_time" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="input_event_stop_time">会议结束时间</label>
+						<input type="datetime-local" name="event_stop_time" placeholder="会议结束时间" id="input_event_stop_time" class="form-control">
+					</div>
+					<!-- /.box-body -->
+					<div class="box-footer clearfix">
+						<button class="btn btn-primary" type="submit" name="submit" value="publish">提交订单</button>
+					</div>
+					<!-- /.box-footer -->
+				</form>
+
+			</div>
+			<!-- /.box -->
+		</div>
+		<!-- /.col -->
+	</div>
+	<!-- /.row -->
+{/block}

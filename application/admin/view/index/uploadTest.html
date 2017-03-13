@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form method="post" action="{:url('admin/ajax/downUpload')}" enctype="multipart/form-data">
+		<input type="hidden" name="tokenGrapher" value="{$Request.token.tokenGrapher}">
+
+			<label>用户头像：</label><input type="file" name="uploadName">
+
+
+		<img src="http://www.pbox.com/uploads/albums/11011114841131936682/20170204/0d9cc16a3b0339378bcaa9325309931d.jpg" alt="">
+			<label>user_id：</label><input type="text" name="user_id" value="1"><br><br>
+			<label>order_id：</label><input type="text" name="order_id" value="11011114841131936682">
+
+			<input type="submit" value="提交">
+	</form>
+</body>
+</html>

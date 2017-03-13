@@ -1,0 +1,291 @@
+{extend name="index:layout" /}
+{block name="title"}会小二拍后台新单展示页面{/block}
+{block name="first_title"}管理订单{/block}
+{block name="last_title"}选择摄影师{/block}
+{block name="content"}
+<form action="{:url('admin/ajax/save')}"  class="form-horizontal" method="post">
+    <div class="row clearfix">
+        <div class="col-md-3 column tabbable">
+                <ul class="nav nav-tabs">
+                    <li class="active col-md-4 column">
+                        <a href="javascript:void(0)" data-toggle="tab" onclick="nav_order(1)">新单</a>
+                    </li>
+                    <li class="col-md-4 column">
+                        <a href="javascript:void(0)" data-toggle="tab" onclick="nav_order(2)">跟进中</a>
+                    </li>
+                    <li class="col-md-4 column">
+                        <a href="javascript:void(0)" data-toggle="tab" onclick="nav_order(3)">已结束</a>
+                    </li>
+                </ul>
+        </div>
+        <div class="col-md-9 column">
+            <button type="submit" class="btn btn-primary pull-right">保存</button>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-3 column" id="panel-779316">
+            {volist name="lists_member" id="member" empty="暂时没有新单！" }
+                <div class="list-group">
+                    <a href="javascript:void(0)" onclick="orderInfo('{$member.order_id}','{$member.city_number}')" class="list-group-item">
+                        <div class="pull-left">{$member.event_title}</div>
+                        <div class="pull-right">{$member.order_date}</div>
+                        <div class="clearfix"></div>
+                    </a>
+                </div>
+            {/volist}
+
+        </div>
+
+        <div class="col-md-5 column">
+                    <div class="box">
+
+                            <input type="hidden" name="tokenAdminEvent" value="{$Request.token.tokenAdminEvent}">
+                            <div class="box">
+                                <div class="form-group">
+                                    <label for="inputOrderid" class="col-sm-2 control-label">订单号</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="order_id" placeholder="订单号" id="inputOrderid" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputRealname" class="col-sm-2 control-label">联系人</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" name="realname" placeholder="联系人" id="inputRealname" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputMobile" class="col-sm-2 control-label">手机号</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" name="mobile" placeholder="手机号" id="inputMobile" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">性别：</label>
+                                    <select name="sex" id="select_sex">
+                                        <option value='1'>男</option>
+                                        <option value='0'>女</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputCity" class="col-sm-2 control-label">拍摄城市</label>
+                                    <div class="col-sm-10">
+                                    <select name="city_number" id="inputCity" class="form-control">
+                                        <option value="1">北京</option>
+                                        <option value="2">上海</option>
+                                        <option value="3">广州</option>
+                                        <option value="4">深圳</option>
+                                        <option value="5">武汉</option>
+                                        <option value="6">成都</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEventTitle" class="col-sm-2 control-label">拍摄主题</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" name="event_title" placeholder="拍摄主题" id="inputEventTitle" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputDate" class="col-sm-2 control-label">拍摄日期</label>
+                                    <div class="col-sm-10">
+                                    <input type="date" name="order_date" value="{:date('Y-m-d')}"id="inputDate" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputDes" class="col-sm-2 control-label">需求描述</label>
+                                    <div class="col-sm-10">
+                                    <textarea name="order_des" placeholder="需求描述" id="inputDes" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box" id="box_event_info">
+                                <div class="form-group">
+                                    <label for="input_company_name" class="col-sm-2 control-label">客户公司</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" name="company_name" placeholder="客户公司" id="input_company_name" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input_company_contact" class="col-sm-2 control-label">客户联系人</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" name="company_contact" placeholder="客户联系人" id="input_company_contact" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input_company_contact_mobile" class="col-sm-2 control-label">客户电话</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" name="company_contact_mobile" placeholder="客户电话" id="input_company_contact_mobile" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input_event_address" class="col-sm-2 control-label">举办地点</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" name="event_address" placeholder="举办地点" id="input_event_address" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input_event_start_time" class="col-sm-2 control-label">会议举办时间</label>
+                                    <div class="col-sm-10">
+                                    <input type="date" name="event_start_time" value="{:date('Y-m-d')}" placeholder="会议举办时间" id="input_event_start_time" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input_event_type" class="col-sm-2 control-label">会议类型</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" name="event_type" placeholder="会议类型" id="input_event_type" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input_event_number" class="col-sm-2 control-label">会议人数</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" name="event_number" placeholder="会议人数" id="input_event_number" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box">
+                                <div class="form-group">
+                                    <label for="input_event_consult" class="col-sm-2 control-label">会议顾问</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" name="event_consult" placeholder="会议顾问" id="input_event_consult" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input_event_consult_mobile" class="col-sm-2 control-label">顾问联系方式</label>
+                                    <div class="col-sm-10">
+                                    <input type="text" name="event_consult_mobile" placeholder="顾问联系方式" id="input_event_consult_mobile" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+        </div>
+        <div class="col-md-4 column">
+            <div class="box">
+                <h4>
+                   摄影师列表
+                </h4>
+                <div class="table-responsive">
+                <table class="table" id="table_grapher">
+                    <!--
+                    <tr>
+                        <td><input type="hidden" ></td>
+                        <td>
+                            <li class="list-group-item pull-left">
+                                <img class="media-object" src="__photographer__20170202/5e942bd140294daf51e1f3f915a5880c.jpg" alt="...">
+                            </li>
+                            <li class="list-group-item pull-left">
+                                <div class="media-body">
+                                    <h5 class="media-heading">张三</h5>
+                                    <h5 class="media-heading">拍摄经验2年</h5>
+                                    <h5 class="media-heading">18734923636</h5>
+                                </div>
+                            </li>
+                        </td>
+                        <td>880/天</td>
+                        <td><button type="button" class="btn btn-default btn-default active pull-left">选择</button></td>
+                    </tr>
+                    -->
+                </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<script>
+    function nav_order(type){
+        $.ajax({
+            url:'{:url("admin/ajax/navOrder")}',
+            type:'post',
+            data:{'type':type},
+            dataType:'json',
+            success:function (json_return) {
+                json_return =  JSON.parse(json_return);
+                if(json_return['status']==0){
+                    return false;
+                }
+                left_string = '';
+                $.each(json_return['data'], function(index, arr){
+                    left_string+= '<div class="list-group"><a href="javascript:void(0)" onclick="orderInfo(&quot;'+arr['order_id']+'&quot;,&quot;'+arr['city_number']+'&quot;)" class="list-group-item">' +
+                                    '<div class="pull-left">'+arr['event_title']+'</div><div class="pull-right">'+arr['order_date']+'</div><div class="clearfix"></div></a></div>';
+                });
+                $('#panel-779316').empty();
+                $('#panel-779316').append(left_string);
+            },
+            error:function(){
+
+            },
+        });
+    }
+    function orderInfo(order_id,city_number) {
+        $.ajax({
+            url:'{:url("admin/ajax/leftOrderRequest")}',
+            type:'post',
+            data:{'order_id':order_id,'city_number':'city_number'},
+            dataType:'json',
+            success:function (json_return) {
+                json_return =  JSON.parse(json_return);
+                if(json_return['status']==0)
+                {
+                    return false;
+                }
+                $('#inputOrderid').val(json_return.data.member.order_id);
+                $('#inputRealname').val(json_return.data.member.realname);
+                $('#inputMobile').val(json_return.data.member.mobile);
+                $('#select_sex').val(json_return.data.member.sex);
+                $('#inputCity').val(json_return.data.member.city_number);
+                $('#inputDate').val(json_return.data.member.order_date);
+                $('#inputEventTitle').val(json_return.data.member.event_title);
+                $('#inputDes').val(json_return.data.member.order_des);
+                if(json_return.data.event!=null){
+                    $('#input_company_name').val(json_return.data.event.company_name);
+                    $('#input_company_contact').val(json_return.data.event.company_contact);
+                    $('#input_company_contact_mobile').val(json_return.data.event.company_contact_mobile);
+                    $('#input_event_address').val(json_return.data.event.event_address);
+                    $('#input_event_start_time').val(json_return.data.event.event_start_time);
+                    $('#input_event_type').val(json_return.data.event.event_type);
+                    $('#input_event_number').val(json_return.data.event.event_number);
+                    $('#input_event_consult').val(json_return.data.event.event_consult);
+                    $('#input_event_consult_mobile').val(json_return.data.event.event_consult_mobile);
+                }else {
+                    $('#input_company_name').val('');
+                    $('#input_company_contact').val('');
+                    $('#input_company_contact_mobile').val('');
+                    $('#input_event_address').val('');
+                    $('#input_event_start_time').val('');
+                    $('#input_event_type').val('');
+                    $('#input_event_number').val('');
+                    $('#input_event_consult').val('');
+                    $('#input_event_consult_mobile').val('');
+                }
+                var grapher = json_return.data.grapher;
+                right_grapher_string = '';
+                $.each(grapher, function(index, arr){
+                    right_grapher_string+= '<tr><td><input type="hidden" ></td> <td> <li class="list-group-item pull-left">'+
+                            '<img class="media-object" src="__photographer__'+arr['thead']+'" alt="..."> </li>' +
+                            '<li class="list-group-item pull-left"><div class="media-body">'+
+                            '<h5 class="media-heading">'+arr['realname']+'</h5>'+
+                            '<h5 class="media-heading">'+arr['working_time']+'</h5>'+
+                            '<h5 class="media-heading">'+arr['mobile']+'</h5>'+
+                            '</div></li> </td> <td>'+arr['low_sal']+'/天</td>'+
+                            '<td><button type="button"  class="btn btn-default btn-default active pull-left" onclick="selectGrapher(this,'+arr['id']+')">选择</button>' +
+                            '</td></tr>';
+                });
+                $('#table_grapher').empty();
+                $('#table_grapher').append(right_grapher_string);
+
+
+
+            },
+            error:function(){
+
+            },
+        });
+    }
+    function selectGrapher(body,id) {
+
+        body.innerText = body.innerText =="选择"?"取消":"选择";
+        alert(id);
+    }
+</script>
+    {/block}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<form method="post" action="{:url('home/ajax/memberOrder')}">
+    <label>联系人(必填)：</label><input type="text" name="realname">
+    <label>手机号(必填)：</label><input type="text" name="mobile">
+    <a href="">点击获取验证码</a><br><br>
+
+    <label>性别：</label><input type="radio" name="sex" value='1'>男
+    <input type="radio" name="sex" value='0'>女
+    <label>拍摄城市：</label><select name="host_city"><option value="1">北京</option><option value="2">上海</option><option value="3">成都</option><option value="4">武汉</option><option value="5">天津</option></select><br><br>
+    <!-- 拍摄时间用下拉框方式 -->
+    <label>拍摄时间：</label><input type="text" name="order_date"><br><br>
+    需求描述:<textarea name="order_des">需求描述：</textarea><br><br>
+    <label>客服电话：</label><span>400-000-0000</span><br><br>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>

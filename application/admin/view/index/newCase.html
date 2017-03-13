@@ -1,0 +1,47 @@
+{extend name="index:layout" /}
+{block name="title"}会小二拍后台新单展示页面{/block}
+{block name="first_title"}管理订单{/block}
+{block name="last_title"}新单{/block}
+{block name="content"}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title"></h3>
+                <a href="addCase" class="btn btn-default pull-right">添加订单</a>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>姓名</th>
+                        <th>性别</th>
+                        <th>联系方式</th>
+                        <th>所在城市</th>
+                        <th>拍摄主题</th>
+                        <th>拍摄时间</th>
+                        <th>具体需求</th>
+                        <th  colspan="3" style="text-align: center">操作</th>
+                    </tr>
+                    {volist name="data" id="list" empty="暂时没有会员提出需求！" }
+                    <tr>
+                        <!--<input type="hidden" name="order_id" value="{$list.order_id}">-->
+                        <td>{$list.realname}</td><td>{$list.sex==1?'男':'女'}</td><td>{$list.mobile}</td>
+                        <td>{$list.city_name}</td><td>{$list.event_title}</td><td>{$list.order_date}</td>
+                        <td>{$list.order_des}</td>
+                        <td><a href="{:url('editCase',['order_id'=>$list.order_id])}">修改</a></td>
+                        <!-- 进入关单页面需填写关单原因 -->
+                        <td><a href="{:url('addEvent',['order_id'=>$list.order_id])}">跟进</a></td>
+                        <td><a href="{:url('stopCase',['order_id'=>$list.order_id])}">关闭</a></td>
+                    </tr>
+                    {/volist}
+                    </tbody></table>
+            </div><!-- /.box-body -->
+            <div class="box-footer clearfix">
+            </div>
+        </div>
+
+    </div>
+</div>
+{/block}

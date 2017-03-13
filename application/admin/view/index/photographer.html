@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择摄影师界面</title>
+    <style>
+        img {
+            width: 50px;height:50px;
+        }
+    </style>
+    <script type='text/javascript' src='/js/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript">
+        function send(id) {
+
+            $.ajax({
+                url: 'admin/ajax/send', //请求的页面
+                type: 'post', //请求的方式
+                data: {'id': id}, //发送数据给pages.php
+                dataType: 'json', //接收回来的数据是 json格式
+                success: function (json_data) {
+
+                   alert(json_data);
+                }
+            })
+        }
+
+    </script>
+</head>
+<body>
+
+    <input type="hidden" name="order_id" value="{isset($order_id)?$order_id:0}">
+
+        <table>
+            <tr>
+                <th>用户名称：</th><th>真实姓名：</th><th>性别：</th><th>用户头像：</th><th>服务地点：</th><th>擅长技能：</th><th>手机号码：</th><th>操作</th>
+            </tr>
+            {volist  name="lists" id="list" empty="暂时没有数据"}
+            <tr>
+                <td>{$list.username}</td><td>{$list.realname}</td><td>{$list.sex}</td><td><img src="/uploads/photographer/{$list.thead}" alt=""></td>
+                <td>{$list.work_address}</td><td>{$list.skills}</td><td>{$list.mobile}</td><td><button onclick="send({$list.id})">设为初选</button></td>
+            </tr>
+            {/volist}
+        </table>
+</body>
+
+</html>

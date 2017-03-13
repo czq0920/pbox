@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>微信照片分享界面</title>
+    <style>
+        ul li{
+            float: left;text-decoration: none;list-style: none;
+        }
+    </style>
+</head>
+<body>
+        <div>
+            {volist name="lists" id="list" empty="服务器没数据" }
+            <ul>
+
+                <li>{$list.id}</li>
+                <li><img src="/uploads/albums/{$list.order_id}/{$list.photo_name}" alt=""></li>
+                <li>{$list.update_time}</li><br>
+            </ul>
+            {/volist}
+        </div>
+        <br><br>
+        <div >{$lists->render()}</div>
+
+</body>
+</html>

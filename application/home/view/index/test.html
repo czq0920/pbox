@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title111</title>
+    <script type="text/javascript" src="__JQUERY__"></script>
+
+    <script type="text/javascript">
+        function sendMess(mobile,sign)
+        {
+            var url = '{:url("home/ajax/sendMess")}';
+            var data = {'mobile':mobile,'sign':sign};
+            $.ajax({
+                url:url,
+                type:'post',
+                data:data,
+                dataType:'json',
+                success:function(json_data){
+                    console.log(json_data);
+                },
+                error:function () {
+                    alert('error');
+                }
+            });
+        }
+
+
+    </script>
+</head>
+<body>
+手机号：    <input type="text" name="mobile" id="test_mobile">
+<button id="button_test" onclick="sendMess(test_mobile.value,'test')">点我</button>
+</body>
+</html>
